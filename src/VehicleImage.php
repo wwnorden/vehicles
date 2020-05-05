@@ -76,7 +76,7 @@ class VehicleImage extends DataObject implements PermissionProvider
     ];
 
     /**
-     * @return \SilverStripe\Forms\FieldList
+     * @return FieldList
      */
     public function getCMSFields(): FieldList
     {

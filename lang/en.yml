@@ -33,8 +33,11 @@ de:
     PLURALNAME: 'Vehicle images'
     SINGULARNAME: 'Vehicle image'
 
-  WWN\Vehicles\VehiclesPage:
+  WWN\Vehicles\VehiclePage:
     SINGULARNAME: 'Vehicle page'
+
+  WWN\Vehicles\VehicleArchivePage:
+    SINGULARNAME: 'Vehicle archive page'
 
   WWN\Vehicles\Extensions\VehiclesSiteConfigExtension:
     SITECONFIGMENUTITLE: 'Uploads'

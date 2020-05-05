@@ -1,7 +1,7 @@
 <section class="wrapper">
     <div class="inner">
         <%-- Breadcrumbs --%>
-        <% include Breadcrumbs %>
+        <% include BreadCrumbs %>
         <hr>
 
         <% if $Headline %><h1>$Headline.RAW</h1><% end_if %>
@@ -23,9 +23,6 @@
                                              src="$Image.URL">
                                     <% end_if %>
                                 <% end_loop %>
-                            <% else %>
-                                <img class="margin-top-7" title="$SiteConfig.Title"
-                                     src="$ThemeDir/img/feuerwehr.jpg">
                             <% end_if %>
                         </a>
                         <div>

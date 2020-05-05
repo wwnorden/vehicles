@@ -1,7 +1,7 @@
 <section class="wrapper">
     <div class="inner">
         <%-- Breadcrumbs --%>
-        <% include Breadcrumbs %>
+        <% include BreadCrumbs %>
         <hr>
 
         <% if $Vehicle %>
@@ -43,22 +43,12 @@
                 <p><strong><%_t('WWN\Vehicles\VehicleImage.PLURALNAME', 'Images')%></strong></p>
                 <div id="$ID">
                     <% loop $VehicleImages %>
-                        <a href="$Image.URL" alt="$Title" title="$Title" data-gallery="#blueimp-gallery-$Up.ID">
+                        <a href="$Image.URL" alt="$Title" title="$Title">
                             <img src="$Image.URL"
-                                 class="img-rounded image-list"
                                  alt="$Title"
                                  title="$Title">
                         </a>
                     <% end_loop %>
-                </div>
-                <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
-                    <div class="slides"></div>
-                    <h3 class="title"></h3>
-                    <a class="prev">‹</a>
-                    <a class="next">›</a>
-                    <a class="close">×</a>
-                    <a class="play-pause"></a>
-                    <ol class="indicator"></ol>
                 </div>
             <% end_if %>
             <br>

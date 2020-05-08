@@ -17,6 +17,8 @@ de:
     db_PeriodOfService: 'Dienstzeit'
     has_one_Successor: 'Nachfolgefahrzeug'
     has_many_VehicleImages: 'Fahrzeugbilder'
+    ConstructionYearFormat: 'dd.MM.yyyy'
+    ConstructionYearDescription: 'Angabe in folgendem Format {format}'
     PLURALNAME: 'Fahrzeuge'
     SINGULARNAME: 'Fahrzeug'
 
@@ -40,7 +42,7 @@ de:
     SINGULARNAME: 'Fahrzeugarchivseite'
 
   WWN\Vehicles\Extensions\VehiclesSiteConfigExtension:
-    SITECONFIGMENUTITLE: 'Uploads'
+    has_one_VehiclesImageUploadFolder: 'Bilder'
     Foldername: 'Fahrzeuge'
     UploadFolders: 'Ordner für Fahrzeugbilder'
-    has_one_VehiclesImageUploadFolder: 'Bilder'
+    SITECONFIGMENUTITLE: 'Uploads'

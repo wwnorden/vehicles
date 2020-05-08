@@ -17,6 +17,8 @@ de:
     db_PeriodOfService: 'Period of service'
     has_one_Successor: 'Successor vehicle'
     has_many_VehicleImages: 'Vehicle images'
+    ConstructionYearFormat: 'MM/dd/yyyy'
+    ConstructionYearDescription: 'Date in the following form {format}'
     PLURALNAME: 'Vehicles'
     SINGULARNAME: 'Vehicle'
 
@@ -40,7 +42,7 @@ de:
     SINGULARNAME: 'Vehicle archive page'
 
   WWN\Vehicles\Extensions\VehiclesSiteConfigExtension:
-    SITECONFIGMENUTITLE: 'Uploads'
+    has_one_VehiclesImageUploadFolder: 'Images'
     Foldername: 'Vehicles'
     UploadFolders: 'Folder for vehicle images'
-    has_one_VehiclesImageUploadFolder: 'Images'
+    SITECONFIGMENUTITLE: 'Uploads'

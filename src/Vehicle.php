@@ -4,6 +4,7 @@ namespace WWN\Vehicles;
 
 use SilverStripe\CMS\Forms\SiteTreeURLSegmentField;
 use SilverStripe\Control\Director;
+use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\DataObject;
@@ -178,12 +179,37 @@ class Vehicle extends DataObject
         // remove undefined string from urlsegment in backend
         Requirements::javascript('wwnorden/vehicles:client/dist/js/urlsegmentfield.js');
 
+        // Url segment
         $mainFields = array(
             'URLSegment' => SiteTreeURLSegmentField::create(
                 'URLSegment',
                 _t('WWN\Vehicles\Vehicle.db_URLSegment', 'URL-segment')
             ),
         );
+
+        // Construction year
+        $constructionYear = DateField::create(
+            'ConstructionYear',
+            _t('WWN\Vehicles\Vehicle.db_ConstructionYear', 'Construction year')
+        )
+            ->setHTML5(false)
+            ->setDateFormat(
+                _t('WWN\Vehicles\Vehicle.ConstructionYearFormat',
+                'MM/dd/yyyy')
+            );
+        $constructionYear->setDescription(
+            _t(
+                'WWN\Vehicles\Vehicle.ConstructionYearDescription',
+                'e.g. {format}',
+                ['format' => $constructionYear->getDateFormat()]
+            )
+        );
+        $constructionYear->setAttribute(
+            'placeholder',
+            $constructionYear->getDateFormat()
+        );
+        $mainFields['ConstructionYear'] = $constructionYear;
+
         $fields->addFieldsToTab('Root.Main', $mainFields);
         $fields->removeByName('Sort');
 

@@ -5,6 +5,7 @@
 * SilverStripe CMS 4.0+
 * SilverStripe Assets 1.0+
 * SilverStripe Asset Admin Module 1.0+
+* symbiote/silverstripe-gridfieldextensions ^3
 
 ## Installation
 

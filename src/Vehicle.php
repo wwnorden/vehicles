@@ -167,6 +167,10 @@ class Vehicle extends DataObject
         if (! $this->Sort) {
             $this->Sort = Vehicle::get()->max('Sort') + 1;
         }
+
+        if ($this->SuccessorID){
+            $this->setClassName('WWN\Vehicles\VehicleArchive');
+        }
     }
 
     /**

@@ -1,0 +1,48 @@
+de:
+  WWN\Vehicles\VehiclesAdmin:
+    MENUTITLE: 'Fahrzeuge'
+    SITECONFIGMENUTITLE: 'Uploads'
+
+  WWN\Vehicles\Vehicle:
+    db_Name: 'Name'
+    db_PagingName: 'Funkrufname'
+    db_Manufacturer: 'Hersteller'
+    db_Model: 'Modell'
+    db_Power: 'Leistung'
+    db_ConstructionYear: 'Baujahr'
+    db_Weight: 'Zulässiges Gesamtgewicht'
+    db_Consolidation: 'Aufbauhersteller'
+    db_Content: 'Beschreibung'
+    db_Crew: 'Besatzung'
+    db_PeriodOfService: 'Dienstzeit'
+    has_one_Successor: 'Nachfolgefahrzeug'
+    has_many_VehicleImages: 'Fahrzeugbilder'
+    ConstructionYearFormat: 'dd.MM.yyyy'
+    ConstructionYearDescription: 'Angabe in folgendem Format {format}'
+    PLURALNAME: 'Fahrzeuge'
+    SINGULARNAME: 'Fahrzeug'
+
+  WWN\Vehicles\VehicleArchive:
+    PLURALNAME: 'Ehemalige Fahrzeuge'
+    SINGULARNAME: 'Ehemaliges Fahrzeug'
+
+  WWN\Vehicles\VehicleImage:
+    db_Cover: 'Coverbild des Fahrzeuges'
+    db_SortOrder: 'Sortierung'
+    db_Title: 'Titel'
+    has_one_Image: 'Bild'
+    has_one_Vehicle: 'Fahrzeug'
+    PLURALNAME: 'Fahrzeugbilder'
+    SINGULARNAME: 'Fahrzeugbild'
+
+  WWN\Vehicles\VehiclePage:
+    SINGULARNAME: 'Fahrzeugseite'
+
+  WWN\Vehicles\VehicleArchivePage:
+    SINGULARNAME: 'Fahrzeugarchivseite'
+
+  WWN\Vehicles\Extensions\VehiclesSiteConfigExtension:
+    has_one_VehiclesImageUploadFolder: 'Bilder'
+    Foldername: 'Fahrzeuge'
+    UploadFolders: 'Ordner für Fahrzeugbilder'
+    SITECONFIGMENUTITLE: 'Uploads'

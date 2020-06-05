@@ -47,6 +47,10 @@ class Vehicle extends DataObject
         'Successor' => Vehicle::class,
     ];
 
+    private static $belongs_to = [
+        'Predecessor' => Vehicle::class,
+    ];
+
     private static $has_many = [
         'VehicleImages' => VehicleImage::class,
     ];
@@ -168,7 +172,7 @@ class Vehicle extends DataObject
             $this->Sort = Vehicle::get()->max('Sort') + 1;
         }
 
-        if ($this->SuccessorID){
+        if ($this->SuccessorID) {
             $this->setClassName('WWN\Vehicles\VehicleArchive');
         }
     }
@@ -199,7 +203,8 @@ class Vehicle extends DataObject
             ->setHTML5(false)
             ->setDateFormat(
                 _t('WWN\Vehicles\Vehicle.ConstructionYearFormat',
-                'MM/dd/yyyy')
+                    'MM/dd/yyyy'
+                )
             );
         $constructionYear->setDescription(
             _t(

@@ -19,17 +19,17 @@
                             <% if $VehicleImages %>
                                 <% loop $VehicleImages %>
                                     <% if $Cover && $Image %>
-                                        <img class="margin-top-7" width="400" title="$Title"
+                                        <img width="400" title="$Title"
                                              src="$Image.URL">
                                     <% end_if %>
                                 <% end_loop %>
                             <% end_if %>
                         </a>
-                        <div>
-                            <a href="$Top.Link$URLSegment/">
-                                $Name
+                        <p class="tac">
+                            <a class="button" title="$Name | $PagingName" href="$Top.Link$URLSegment/">
+                                $Name.LimitWordCount(2) | $PagingName.LimitWordCount(1)
                             </a>
-                        </div>
+                        </p>
                     </div>
                 <% end_loop %>
             </div>

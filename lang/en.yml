@@ -17,6 +17,7 @@ de:
     db_PeriodOfService: 'Period of service'
     has_one_Successor: 'Successor vehicle'
     has_many_VehicleImages: 'Vehicle images'
+    belongs_to_Predecessor: 'Predecessor vehicle'
     ConstructionYearFormat: 'MM/dd/yyyy'
     ConstructionYearDescription: 'Date in the following form {format}'
     PLURALNAME: 'Vehicles'

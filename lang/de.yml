@@ -17,6 +17,7 @@ de:
     db_PeriodOfService: 'Dienstzeit'
     has_one_Successor: 'Nachfolgefahrzeug'
     has_many_VehicleImages: 'Fahrzeugbilder'
+    belongs_to_Predecessor: 'Vorgängerfahrzeug'
     ConstructionYearFormat: 'dd.MM.yyyy'
     ConstructionYearDescription: 'Angabe in folgendem Format {format}'
     PLURALNAME: 'Fahrzeuge'

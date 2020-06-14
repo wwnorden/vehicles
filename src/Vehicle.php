@@ -3,6 +3,7 @@
 namespace WWN\Vehicles;
 
 use SilverStripe\CMS\Forms\SiteTreeURLSegmentField;
+use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Director;
 use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\FieldList;
@@ -223,5 +224,38 @@ class Vehicle extends DataObject
         $fields->removeByName('Sort');
 
         return $fields;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getVehiclePage()
+    {
+        if ($this->owner->ClassName === 'WWN\Vehicles\VehicleArchive') {
+            $site = SiteTree::get()
+                ->filter(['ClassName' => 'WWN\Vehicles\VehicleArchivePage'])
+                ->first();
+            if ($site && ! $site->ParentID) {
+                return $site->URLSegment;
+            } else {
+                $topSite =
+                    SiteTree::get()->filter(['ID' => $site->ParentID])->first();
+                if ($topSite && $topSite->URLSegment) {
+                    return $topSite->URLSegment.'/'.$site->URLSegment;
+                }
+            }
+        } else {
+            $site = SiteTree::get()
+                ->filter(['ClassName' => 'WWN\Vehicles\VehiclePage'])->first();
+            if ($site && ! $site->ParentID) {
+                return $site->URLSegment;
+            } else {
+                $topSite =
+                    SiteTree::get()->filter(['ID' => $site->ParentID])->first();
+                if ($topSite && $topSite->URLSegment) {
+                    return $topSite->URLSegment.'/'.$site->URLSegment;
+                }
+            }
+        }
     }
 }

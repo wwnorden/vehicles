@@ -29,13 +29,16 @@ class VehiclePageController extends PageController
     /**
      * Overview
      *
+     * @param int $length
+     *
      * @return PaginatedList
      * @throws Exception
      */
-    public function PaginatedVehicles()
+    public function PaginatedVehicles($length = 10)
     {
         $vehicles = Vehicle::get()->filter(['ClassName' => Vehicle::class]);
-        return new PaginatedList($vehicles, $this->getRequest());
+        $pages = new PaginatedList($vehicles, $this->getRequest());
+        return $pages->setPageLength($length);
     }
 
     /**

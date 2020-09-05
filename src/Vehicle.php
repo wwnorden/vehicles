@@ -100,6 +100,12 @@ class Vehicle extends DataObject
      */
     public function getConstructionYearFormatted(): ?string
     {
+        if (false == strtotime($this->dbObject('ConstructionYear')->getValue())
+            ?? false
+        ) {
+            return null;
+        }
+
         return date(
             'Y',
             strtotime($this->dbObject('ConstructionYear')->getValue())
@@ -114,15 +120,6 @@ class Vehicle extends DataObject
         'PagingName',
         'Content',
     ];
-
-    /**
-     * @return DataObject|void
-     */
-    public function populateDefaults()
-    {
-        parent::populateDefaults();
-        $this->ConstructionYear = date('d.m.Y');
-    }
 
     /**
      * @return RequiredFields

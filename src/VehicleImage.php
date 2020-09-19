@@ -138,6 +138,18 @@ class VehicleImage extends DataObject implements PermissionProvider
     }
 
     /**
+     * set sortorder
+     */
+    protected function onBeforeWrite()
+    {
+        if (! $this->SortOrder) {
+            $this->SortOrder = VehicleImage::get()->max('SortOrder') + 1;
+        }
+
+        parent::onBeforeWrite();
+    }
+
+    /**
      * publish images afterwards
      */
     public function onAfterWrite()

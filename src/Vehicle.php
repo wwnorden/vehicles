@@ -7,10 +7,21 @@ use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Director;
 use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldConfig;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\GridField\GridFieldToolbarHeader;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\View\Requirements;
+use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use Symbiote\GridFieldExtensions\GridFieldTitleHeader;
 
 /**
  * Vehicle
@@ -219,6 +230,30 @@ class Vehicle extends DataObject
 
         $fields->addFieldsToTab('Root.Main', $mainFields);
         $fields->removeByName('Sort');
+
+        // sorting images
+        $images = GridField::create(
+            'VehicleImages',
+            _t('WWN\Vehicles\VehicleImage.PLURALNAME','Vehicle images'),
+            $this->VehicleImages(),
+            GridFieldConfig::create()->addComponents(
+                new GridFieldToolbarHeader(),
+                new GridFieldAddNewButton('toolbar-header-right'),
+                new GridFieldDetailForm(),
+                new GridFieldDataColumns(),
+                new GridFieldEditButton(),
+                new GridFieldDeleteAction('unlinkrelation'),
+                new GridFieldDeleteAction(),
+                new GridFieldOrderableRows('SortOrder'),
+                new GridFieldTitleHeader(),
+                new GridFieldAddExistingAutocompleter('before', array('Title'))
+            )
+        );
+        $fields->addFieldsToTab('Root.VehicleImages',
+            array(
+                $images
+            )
+        );
 
         return $fields;
     }

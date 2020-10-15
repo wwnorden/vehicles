@@ -164,15 +164,20 @@ class Vehicle extends DataObject
     {
         parent::onBeforeWrite();
 
-        if ($this->Name) {
+        if ($this->URLSegment) {
+            $name = $this->URLSegment;
+        } else{
+            $name = $this->Name;
+        }
+        if ($name){
             $filter = URLSegmentFilter::create();
-            $filteredTitle = $filter->filter($this->Name);
+            $filteredTitle = $filter->filter($name);
 
             // Fallback to generic page name if path is empty (= no valid, convertable characters)
             if (! $filteredTitle || $filteredTitle == '-'
                 || $filteredTitle == '-1'
             ) {
-                $filteredTitle = "page-$this->ID";
+                $filteredTitle = "vehicle-$this->ID";
             }
             $this->URLSegment = $filteredTitle;
         }
@@ -185,7 +190,6 @@ class Vehicle extends DataObject
             $this->setClassName('WWN\Vehicles\VehicleArchive');
         }
     }
-
     /**
      * @return FieldList
      */

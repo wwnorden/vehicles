@@ -177,7 +177,7 @@ class Vehicle extends DataObject
             if (! $filteredTitle || $filteredTitle == '-'
                 || $filteredTitle == '-1'
             ) {
-                $filteredTitle = "page-$this->ID";
+                $filteredTitle = "vehicle-$this->ID";
             }
             $this->URLSegment = $filteredTitle;
         }
@@ -190,7 +190,6 @@ class Vehicle extends DataObject
             $this->setClassName('WWN\Vehicles\VehicleArchive');
         }
     }
-
     /**
      * @return FieldList
      */

@@ -89,7 +89,7 @@ class VehicleImage extends DataObject implements PermissionProvider
             _t(
                 'WWN\Vehicles\Extensions\VehiclesSiteConfigExtension.Foldername',
                 'Foldername'
-            ).'/'. $this->Vehicle->Name
+            ).'/'. str_replace('/','-',$this->Vehicle->Name)
         );
 
         return $fields;

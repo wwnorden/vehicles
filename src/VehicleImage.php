@@ -84,6 +84,14 @@ class VehicleImage extends DataObject implements PermissionProvider
         $fields->removeByName('VehicleID');
         $fields->removeByName('SortOrder');
 
+        $image = $fields->dataFieldByName('Image');
+        $image->setFolderName(
+            _t(
+                'WWN\Vehicles\Extensions\VehiclesSiteConfigExtension.Foldername',
+                'Foldername'
+            ).'/'. $this->Vehicle->Name
+        );
+
         return $fields;
     }
 

@@ -238,7 +238,7 @@ class Vehicle extends DataObject
         // sorting images
         $images = GridField::create(
             'VehicleImages',
-            _t('WWN\Vehicles\VehicleImage.PLURALNAME','Vehicle images'),
+            _t('WWN\Vehicles\Vehicle.has_many_VehicleImages','Vehicle images'),
             $this->VehicleImages(),
             GridFieldConfig::create()->addComponents(
                 new GridFieldToolbarHeader(),
@@ -253,7 +253,7 @@ class Vehicle extends DataObject
                 new GridFieldAddExistingAutocompleter('before', array('Title'))
             )
         );
-        $fields->addFieldsToTab('Root.VehicleImages',
+        $fields->addFieldsToTab('Root.'._t('WWN\Vehicles\Vehicle.has_many_VehicleImages','Vehicle images'),
             array(
                 $images
             )

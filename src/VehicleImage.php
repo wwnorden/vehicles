@@ -13,7 +13,9 @@ use SilverStripe\Security\PermissionProvider;
  * VehicleImage
  *
  * @package wwn-vehicles
- * @access public
+ * @property string $Title
+ * @property int    $SortOrder
+ * @property bool   $Cover
  */
 class VehicleImage extends DataObject implements PermissionProvider
 {
@@ -152,6 +154,10 @@ class VehicleImage extends DataObject implements PermissionProvider
     {
         if (! $this->SortOrder) {
             $this->SortOrder = VehicleImage::get()->max('SortOrder') + 1;
+        }
+
+        if (empty($this->Title)){
+            $this->Title = $this->owner->Image()->Title ?? $this->owner->Image()->Name;
         }
 
         parent::onBeforeWrite();

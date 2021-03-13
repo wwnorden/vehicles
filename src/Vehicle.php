@@ -18,6 +18,7 @@ use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldToolbarHeader;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\HasManyList;
 use SilverStripe\View\Parsers\URLSegmentFilter;
 use SilverStripe\View\Requirements;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
@@ -40,6 +41,7 @@ use Symbiote\GridFieldExtensions\GridFieldTitleHeader;
  * @property string $Content
  * @property string $PeriodOfService
  * @property int    $Sort
+ * @method HasManyList VehicleImages()
  */
 class Vehicle extends DataObject
 {

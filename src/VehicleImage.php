@@ -27,7 +27,7 @@ class VehicleImage extends DataObject implements PermissionProvider
     private static $table_name = 'WWNVehicleImage';
 
     /**
-     * @var array $db
+     * @var string[]
      */
     private static $db = array(
         'Title' => 'Varchar(150)',
@@ -38,7 +38,7 @@ class VehicleImage extends DataObject implements PermissionProvider
     );
 
     /**
-     * @var array $has_one
+     * @var string[]
      */
     private static $has_one = array(
         'Vehicle' => Vehicle::class,
@@ -46,12 +46,12 @@ class VehicleImage extends DataObject implements PermissionProvider
     );
 
     /**
-     * @var string|array $default_sort
+     * @var string
      */
     private static $default_sort = 'SortOrder';
 
     /**
-     * @var array $field_labels
+     * @var string[]
      */
     private static $field_labels = array(
         'Title' => 'Titel',
@@ -59,14 +59,14 @@ class VehicleImage extends DataObject implements PermissionProvider
     );
 
     /**
-     * @var array $searchable_fields
+     * @var string[]
      */
     private static $searchable_fields = array(
         'Title',
     );
 
     /**
-     * @var array $summary_fields
+     * @var string[]
      */
     private static $summary_fields = array(
         'Title',
@@ -76,7 +76,7 @@ class VehicleImage extends DataObject implements PermissionProvider
     );
 
     /**
-     * @var array $owns
+     * @var string[]
      */
     private static $owns = [
         'Image',
@@ -96,64 +96,92 @@ class VehicleImage extends DataObject implements PermissionProvider
             _t(
                 'WWN\Vehicles\Extensions\VehiclesSiteConfigExtension.Foldername',
                 'Foldername'
-            ).'/'. str_replace(['/',',','.',' ','_','(',')'],'-',$this->Vehicle->Name)
+            ).'/'.str_replace(['/', ',', '.', ' ', '_', '(', ')'], '-', $this->Vehicle->Name)
         );
 
         return $fields;
     }
 
     /**
-     * @return Image
+     * @return mixed
      */
     public function getThumbnail()
     {
         return $this->Image()->CMSThumbnail();
     }
 
+    /**
+     * @param null $member
+     *
+     * @return bool|int
+     */
     public function canView($member = null)
     {
-        if (!$member) {
+        if (! $member) {
             $member = Member:: currentUser();
         }
+
         return Permission:: checkMember($member, 'VehicleImage_VIEW');
     }
 
+    /**
+     * @param false $member
+     *
+     * @return bool|int
+     */
     public function canEdit($member = false)
     {
-        if (!$member) {
+        if (! $member) {
             $member = Member:: currentUser();
         }
+
         return Permission:: checkMember($member, 'VehicleImage_EDIT');
     }
 
+    /**
+     * @param false $member
+     * @param array $context
+     *
+     * @return bool|int
+     */
     public function canCreate($member = false, $context = array())
     {
-        if (!$member) {
+        if (! $member) {
             $member = Member:: currentUser();
         }
+
         return Permission:: checkMember($member, 'VehicleImage_CREATE');
     }
 
+    /**
+     * @param false $member
+     *
+     * @return bool|int
+     */
     public function canDelete($member = false)
     {
-        if (!$member) {
+        if (! $member) {
             $member = Member:: currentUser();
         }
+
         return Permission:: checkMember($member, 'VehicleImage_DELETE');
     }
 
+    /**
+     * @return string[]
+     */
     public function providePermissions()
     {
         return array(
             'VehicleImage_VIEW' => 'Einsatzbilder ansehen',
             'VehicleImage_EDIT' => 'Einsatzbilder bearbeiten',
             'VehicleImage_CREATE' => 'Einsatzbilder erstellen',
-            'VehicleImage_DELETE' => 'Einsatzbilder löschen'
+            'VehicleImage_DELETE' => 'Einsatzbilder löschen',
         );
     }
 
     /**
-     * set sortorder
+     * set sortorder and title
      */
     protected function onBeforeWrite()
     {
@@ -161,7 +189,7 @@ class VehicleImage extends DataObject implements PermissionProvider
             $this->SortOrder = VehicleImage::get()->max('SortOrder') + 1;
         }
 
-        if (empty($this->Title)){
+        if (empty($this->Title)) {
             $this->Title = $this->owner->Image()->Title ?? $this->owner->Image()->Name;
         }
 

@@ -31,6 +31,8 @@ de:
     SINGULARNAME: 'Ehemaliges Fahrzeug'
 
   WWN\Vehicles\VehicleImage:
+    db_Category: 'Kategorie'
+    db_Content: 'Inhalt'
     db_Cover: 'Coverbild des Fahrzeuges'
     db_SortOrder: 'Sortierung'
     db_Title: 'Titel'

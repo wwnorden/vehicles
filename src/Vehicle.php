@@ -27,7 +27,19 @@ use Symbiote\GridFieldExtensions\GridFieldTitleHeader;
  * Vehicle
  *
  * @package wwn-vehicles
- * @access  public
+ * @property string $Name
+ * @property string $URLSegment
+ * @property string $PagingName
+ * @property string $Manufacturer
+ * @property string $Model
+ * @property string $Power
+ * @property string $ConstructionYear
+ * @property string $Weight
+ * @property string $Consolidation
+ * @property string $Crew
+ * @property string $Content
+ * @property string $PeriodOfService
+ * @property int    $Sort
  */
 class Vehicle extends DataObject
 {
@@ -37,7 +49,7 @@ class Vehicle extends DataObject
     private static $table_name = 'WWNVehicle';
 
     /**
-     * @var array $db
+     * @var string[]
      */
     private static $db = [
         'Name' => 'Varchar(150)',
@@ -55,20 +67,29 @@ class Vehicle extends DataObject
         'Sort' => 'Int',
     ];
 
+    /**
+     * @var string[]
+     */
     private static $has_one = [
         'Successor' => Vehicle::class,
     ];
 
+    /**
+     * @var string[]
+     */
     private static $belongs_to = [
         'Predecessor' => Vehicle::class,
     ];
 
+    /**
+     * @var string[]
+     */
     private static $has_many = [
         'VehicleImages' => VehicleImage::class,
     ];
 
     /**
-     * @var array $indexes
+     * @var array[]
      */
     private static $indexes = [
         'SearchFields' => [
@@ -78,7 +99,7 @@ class Vehicle extends DataObject
     ];
 
     /**
-     * @var string $default_sort
+     * @var string[]
      */
     private static $default_sort = [
         'Sort' => 'ASC',
@@ -86,7 +107,7 @@ class Vehicle extends DataObject
     ];
 
     /**
-     * @var array $summary_fields
+     * @var string[]
      */
     private static $summary_fields = [
         'Name',
@@ -95,7 +116,12 @@ class Vehicle extends DataObject
         'Crew',
     ];
 
-    public function fieldLabels($includerelations = true)
+    /**
+     * @param bool $includerelations
+     *
+     * @return array
+     */
+    public function fieldLabels($includerelations = true): array
     {
         $labels = parent::fieldLabels(true);
         $labels['ConstructionYearFormatted'] =
@@ -107,7 +133,7 @@ class Vehicle extends DataObject
     /**
      * format ConstructionYear for overview
      *
-     * @return false|string
+     * @return string|null
      */
     public function getConstructionYearFormatted(): ?string
     {
@@ -124,7 +150,7 @@ class Vehicle extends DataObject
     }
 
     /**
-     * @var array $searchable_fields
+     * @var string[]
      */
     private static $searchable_fields = [
         'Name',
@@ -158,7 +184,7 @@ class Vehicle extends DataObject
     }
 
     /**
-     * rewrite urlsegment and sorting
+     * rewrite urlsegment, sorting and successor
      */
     protected function onBeforeWrite()
     {
@@ -166,10 +192,10 @@ class Vehicle extends DataObject
 
         if ($this->URLSegment) {
             $name = $this->URLSegment;
-        } else{
+        } else {
             $name = $this->Name;
         }
-        if ($name){
+        if ($name) {
             $filter = URLSegmentFilter::create();
             $filteredTitle = $filter->filter($name);
 
@@ -190,6 +216,7 @@ class Vehicle extends DataObject
             $this->setClassName('WWN\Vehicles\VehicleArchive');
         }
     }
+
     /**
      * @return FieldList
      */
@@ -201,12 +228,12 @@ class Vehicle extends DataObject
         Requirements::javascript('wwnorden/vehicles:client/dist/js/urlsegmentfield.js');
 
         // Url segment
-        $mainFields = array(
+        $mainFields = [
             'URLSegment' => SiteTreeURLSegmentField::create(
                 'URLSegment',
                 _t('WWN\Vehicles\Vehicle.db_URLSegment', 'URL-segment')
             ),
-        );
+        ];
 
         // Construction year
         $constructionYear = DateField::create(
@@ -238,7 +265,7 @@ class Vehicle extends DataObject
         // sorting images
         $images = GridField::create(
             'VehicleImages',
-            _t('WWN\Vehicles\Vehicle.has_many_VehicleImages','Vehicle images'),
+            _t('WWN\Vehicles\Vehicle.has_many_VehicleImages', 'Vehicle images'),
             $this->VehicleImages(),
             GridFieldConfig::create()->addComponents(
                 new GridFieldToolbarHeader(),
@@ -250,22 +277,18 @@ class Vehicle extends DataObject
                 new GridFieldDeleteAction(),
                 new GridFieldOrderableRows('SortOrder'),
                 new GridFieldTitleHeader(),
-                new GridFieldAddExistingAutocompleter('before', array('Title'))
+                new GridFieldAddExistingAutocompleter('before', ['Title'])
             )
         );
-        $fields->addFieldsToTab('Root.VehicleImages',
-            array(
-                $images
-            )
-        );
+        $fields->addFieldsToTab('Root.VehicleImages', [$images]);
 
         return $fields;
     }
 
     /**
-     * @return mixed|null
+     * @return mixed|string|null
      */
-    public function getVehiclePage()
+    public function getVehiclePage(): ?string
     {
         if ($this->owner->ClassName === 'WWN\Vehicles\VehicleArchive') {
             $site = SiteTree::get()

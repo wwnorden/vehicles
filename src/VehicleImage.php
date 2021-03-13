@@ -29,21 +29,21 @@ class VehicleImage extends DataObject implements PermissionProvider
     /**
      * @var string[]
      */
-    private static $db = array(
+    private static $db = [
         'Title' => 'Varchar(150)',
         'SortOrder' => 'Int',
         'Content' => 'HTMLText',
         'Cover' => 'Boolean',
         'Category' => 'Enum("Vehicle,EquipmentRoom", "Vehicle")',
-    );
+    ];
 
     /**
      * @var string[]
      */
-    private static $has_one = array(
+    private static $has_one = [
         'Vehicle' => Vehicle::class,
         'Image' => Image::class,
-    );
+    ];
 
     /**
      * @var string
@@ -53,27 +53,27 @@ class VehicleImage extends DataObject implements PermissionProvider
     /**
      * @var string[]
      */
-    private static $field_labels = array(
+    private static $field_labels = [
         'Title' => 'Titel',
         'Thumbnail' => 'Vorschau',
-    );
+    ];
 
     /**
      * @var string[]
      */
-    private static $searchable_fields = array(
+    private static $searchable_fields = [
         'Title',
-    );
+    ];
 
     /**
      * @var string[]
      */
-    private static $summary_fields = array(
+    private static $summary_fields = [
         'Title',
         'Thumbnail',
         'Cover',
         'Category',
-    );
+    ];
 
     /**
      * @var string[]
@@ -144,7 +144,7 @@ class VehicleImage extends DataObject implements PermissionProvider
      *
      * @return bool|int
      */
-    public function canCreate($member = false, $context = array())
+    public function canCreate($member = false, $context = [])
     {
         if (! $member) {
             $member = Member:: currentUser();
@@ -172,12 +172,12 @@ class VehicleImage extends DataObject implements PermissionProvider
      */
     public function providePermissions()
     {
-        return array(
+        return [
             'VehicleImage_VIEW' => 'Einsatzbilder ansehen',
             'VehicleImage_EDIT' => 'Einsatzbilder bearbeiten',
             'VehicleImage_CREATE' => 'Einsatzbilder erstellen',
             'VehicleImage_DELETE' => 'Einsatzbilder löschen',
-        );
+        ];
     }
 
     /**

@@ -16,6 +16,8 @@ use SilverStripe\Security\PermissionProvider;
  * @property string $Title
  * @property int    $SortOrder
  * @property bool   $Cover
+ * @property string $Content
+ * @property string $Category
  */
 class VehicleImage extends DataObject implements PermissionProvider
 {
@@ -30,7 +32,9 @@ class VehicleImage extends DataObject implements PermissionProvider
     private static $db = array(
         'Title' => 'Varchar(150)',
         'SortOrder' => 'Int',
+        'Content' => 'HTMLText',
         'Cover' => 'Boolean',
+        'Category' => 'Enum("Vehicle,EquipmentRoom", "Vehicle")',
     );
 
     /**
@@ -68,6 +72,7 @@ class VehicleImage extends DataObject implements PermissionProvider
         'Title',
         'Thumbnail',
         'Cover',
+        'Category',
     );
 
     /**

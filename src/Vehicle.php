@@ -253,7 +253,7 @@ class Vehicle extends DataObject
                 new GridFieldAddExistingAutocompleter('before', array('Title'))
             )
         );
-        $fields->addFieldsToTab('Root.'._t('WWN\Vehicles\Vehicle.has_many_VehicleImages','Vehicle images'),
+        $fields->addFieldsToTab('Root.VehicleImages',
             array(
                 $images
             )

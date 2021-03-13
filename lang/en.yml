@@ -40,6 +40,8 @@ de:
     has_one_Vehicle: 'Vehicle'
     PLURALNAME: 'Vehicle images'
     SINGULARNAME: 'Vehicle image'
+    EquipmentRoom: 'Equipment room'
+    Vehicle: 'Vehicle'
 
   WWN\Vehicles\VehiclePage:
     SINGULARNAME: 'Vehicle page'

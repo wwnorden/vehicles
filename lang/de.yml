@@ -40,6 +40,8 @@ de:
     has_one_Vehicle: 'Fahrzeug'
     PLURALNAME: 'Fahrzeugbilder'
     SINGULARNAME: 'Fahrzeugbild'
+    EquipmentRoom: 'Geräteraum'
+    Vehicle: 'Fahrzeug'
 
   WWN\Vehicles\VehiclePage:
     SINGULARNAME: 'Fahrzeugseite'

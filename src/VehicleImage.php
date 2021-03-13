@@ -3,6 +3,7 @@
 namespace WWN\Vehicles;
 
 use SilverStripe\Assets\Image;
+use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Member;
@@ -99,6 +100,16 @@ class VehicleImage extends DataObject implements PermissionProvider
             ).'/'.str_replace(['/', ',', '.', ' ', '_', '(', ')'], '-', $this->Vehicle->Name)
         );
 
+        $category = [
+            'Category' => DropdownField::create(
+                'Category',
+                _t('WWN\Vehicles\VehicleImage.db_Category',
+                    'Category'),
+                $this->translateEnum(__CLASS__, 'Category')
+            ),
+        ];
+        $fields->addFieldsToTab('Root.Main', $category);
+
         return $fields;
     }
 
@@ -178,6 +189,25 @@ class VehicleImage extends DataObject implements PermissionProvider
             'VehicleImage_CREATE' => 'Einsatzbilder erstellen',
             'VehicleImage_DELETE' => 'Einsatzbilder löschen',
         ];
+    }
+
+    /**
+     * @param string $class
+     * @param string $field
+     *
+     * @return array
+     */
+    public function translateEnum($class, $field): array
+    {
+        $enumArr = $this->dbObject($field)->enumValues();
+
+        // Enum Übersetzungen
+        $translatedField = [];
+        foreach ($enumArr as $key => $value) {
+            $translatedField[$key] = _t($class.'.'.$key, $class.'.'.$key);
+        }
+
+        return $translatedField;
     }
 
     /**

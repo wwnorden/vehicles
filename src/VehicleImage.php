@@ -73,7 +73,7 @@ class VehicleImage extends DataObject implements PermissionProvider
         'Title',
         'Thumbnail',
         'Cover',
-        'Category',
+        'CategoryFormatted',
     ];
 
     /**
@@ -86,7 +86,7 @@ class VehicleImage extends DataObject implements PermissionProvider
     /**
      * @return string|null
      */
-    public function getCategory(): ?string
+    public function CategoryFormatted(): ?string
     {
         return $this->dbObject('Category')
             ->getValue() == 'Vehicle'
@@ -94,6 +94,20 @@ class VehicleImage extends DataObject implements PermissionProvider
             _t('WWN\Vehicles\VehicleImage.Vehicle', 'Vehicle')
             :
             _t('WWN\Vehicles\VehicleImage.EquipmentRoom', 'EquipmentRoom');
+    }
+
+    /**
+     * @param bool $includerelations
+     *
+     * @return array
+     */
+    public function fieldLabels($includerelations = true): array
+    {
+        $labels = parent::fieldLabels(true);
+        $labels['CategoryFormatted'] =
+            _t('WWN\Vehicles\VehicleImage.db_Category', 'Category');
+
+        return $labels;
     }
 
     /**

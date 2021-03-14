@@ -14,14 +14,19 @@ use SilverStripe\View\ArrayData;
  * VehiclePage Controller
  *
  * @package wwn-vehicles
- * @access  public
  */
 class VehiclePageController extends PageController
 {
+    /**
+     * @var string[]
+     */
     private static $allowed_actions = [
         'showDetailvehicle',
     ];
 
+    /**
+     * @var string[]
+     */
     private static $url_handlers = [
         '$URLSegment!' => 'showDetailvehicle',
     ];
@@ -34,10 +39,11 @@ class VehiclePageController extends PageController
      * @return PaginatedList
      * @throws Exception
      */
-    public function PaginatedVehicles($length = 10)
+    public function PaginatedVehicles($length = 10): PaginatedList
     {
         $vehicles = Vehicle::get()->filter(['ClassName' => Vehicle::class]);
         $pages = new PaginatedList($vehicles, $this->getRequest());
+
         return $pages->setPageLength($length);
     }
 
@@ -47,9 +53,10 @@ class VehiclePageController extends PageController
      * @return PaginatedList
      * @throws Exception
      */
-    public function PaginatedArchivedVehicles()
+    public function PaginatedArchivedVehicles(): PaginatedList
     {
         $vehicles = VehicleArchive::get();
+
         return new PaginatedList($vehicles, $this->getRequest());
     }
 
@@ -62,12 +69,12 @@ class VehiclePageController extends PageController
     public function showDetailvehicle(): DBHTMLText
     {
         $name = Convert::raw2sql($this->getRequest()->param('URLSegment'));
-        $filter = array(
+        $filter = [
             'URLSegment' => $name,
-        );
+        ];
 
         $vehicle = Vehicle::get()->filter($filter)->first();
-        $customise = array(
+        $customise = [
             'Vehicle' => $vehicle,
             'ExtraBreadcrumb' => ArrayData::create(
                 [
@@ -76,12 +83,12 @@ class VehiclePageController extends PageController
                 ]
             ),
             'Name' => $vehicle->Name,
-        );
+        ];
 
-        $renderWith = array(
+        $renderWith = [
             'WWN/Vehicles/VehicleDetail',
             'Page',
-        );
+        ];
 
         return $this->customise($customise)->renderWith($renderWith);
     }
@@ -89,7 +96,7 @@ class VehiclePageController extends PageController
     /**
      * @return mixed|string|null
      */
-    public function VehiclePagePath()
+    public function VehiclePagePath(): ?string
     {
         return $this->getPagePath('WWN\Vehicles\VehiclePage');
     }
@@ -97,7 +104,7 @@ class VehiclePageController extends PageController
     /**
      * @return mixed|string|null
      */
-    public function VehicleArchivePagePath()
+    public function VehicleArchivePagePath(): ?string
     {
         return $this->getPagePath('WWN\Vehicles\VehicleArchivePage');
     }
@@ -122,7 +129,7 @@ class VehiclePageController extends PageController
      * recursive page path function
      *
      * @param integer $id
-     * @param string $url
+     * @param string  $url
      *
      * @return string
      */

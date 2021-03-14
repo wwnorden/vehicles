@@ -31,6 +31,8 @@ de:
     SINGULARNAME: 'Former vehicle'
 
   WWN\Vehicles\VehicleImage:
+    db_Category: 'Category'
+    db_Content: 'Content'
     db_Cover: 'Vehicle cover image'
     db_SortOrder: 'Sort order'
     db_Title: 'Title'
@@ -38,6 +40,8 @@ de:
     has_one_Vehicle: 'Vehicle'
     PLURALNAME: 'Vehicle images'
     SINGULARNAME: 'Vehicle image'
+    EquipmentRoom: 'Equipment room'
+    Vehicle: 'Vehicle'
 
   WWN\Vehicles\VehiclePage:
     SINGULARNAME: 'Vehicle page'

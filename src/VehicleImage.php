@@ -84,6 +84,19 @@ class VehicleImage extends DataObject implements PermissionProvider
     ];
 
     /**
+     * @return string|null
+     */
+    public function getCategory(): ?string
+    {
+        return $this->dbObject('Category')
+            ->getValue() == 'Vehicle'
+            ?
+            _t('WWN\Vehicles\VehicleImage.Vehicle', 'Vehicle')
+            :
+            _t('WWN\Vehicles\VehicleImage.EquipmentRoom', 'EquipmentRoom');
+    }
+
+    /**
      * @return FieldList
      */
     public function getCMSFields(): FieldList

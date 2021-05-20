@@ -319,4 +319,30 @@ class Vehicle extends DataObject
             }
         }
     }
+
+    /**
+     * @return false|DataObject
+     */
+    public function PreviousVehicle()
+    {
+        $filter = [
+            'Sort' => $this->Sort > 0 ? $this->Sort - 1 : -1,
+            'ClassName' => $this->ClassName,
+        ];
+        $vehicle = Vehicle::get()->filter($filter)->first();
+        return $vehicle ?? false;
+    }
+
+    /**
+     * @return false|DataObject
+     */
+    public function NextVehicle()
+    {
+        $filter = [
+            'Sort' => $this->Sort + 1,
+            'ClassName' => $this->ClassName,
+        ];
+        $vehicle = Vehicle::get()->filter($filter)->first();
+        return $vehicle ?? false;
+    }
 }

@@ -17,29 +17,20 @@ use SilverStripe\View\ArrayData;
  */
 class VehiclePageController extends PageController
 {
-    /**
-     * @var string[]
-     */
-    private static $allowed_actions = [
-        'showDetailvehicle',
+    private static array $allowed_actions = [
+        'showDetailVehicle',
+    ];
+
+    private static array $url_handlers = [
+        '$URLSegment!' => 'showDetailVehicle',
     ];
 
     /**
-     * @var string[]
-     */
-    private static $url_handlers = [
-        '$URLSegment!' => 'showDetailvehicle',
-    ];
-
-    /**
-     * Overview
+     * Overview vehicles
      *
-     * @param int $length
-     *
-     * @return PaginatedList
      * @throws Exception
      */
-    public function PaginatedVehicles($length = 10): PaginatedList
+    public function PaginatedVehicles(int $length = 10): PaginatedList
     {
         $vehicles = Vehicle::get()->filter(['ClassName' => Vehicle::class]);
         $pages = new PaginatedList($vehicles, $this->getRequest());
@@ -48,12 +39,11 @@ class VehiclePageController extends PageController
     }
 
     /**
-     * Overview archive
+     * Overview archived vehicles
      *
-     * @return PaginatedList
      * @throws Exception
      */
-    public function PaginatedArchivedVehicles($length = 10): PaginatedList
+    public function PaginatedArchivedVehicles(int $length = 10): PaginatedList
     {
         $vehicles = VehicleArchive::get()->filter(['ClassName' => VehicleArchive::class]);
         $pages = new PaginatedList($vehicles, $this->getRequest());
@@ -64,10 +54,9 @@ class VehiclePageController extends PageController
     /**
      * Detail view
      *
-     * @return DBHTMLText
      * @throws Exception
      */
-    public function showDetailvehicle(): DBHTMLText
+    public function showDetailVehicle(): DBHTMLText
     {
         $name = Convert::raw2sql($this->getRequest()->param('URLSegment'));
         $filter = [
@@ -94,32 +83,21 @@ class VehiclePageController extends PageController
         return $this->customise($customise)->renderWith($renderWith);
     }
 
-    /**
-     * @return mixed|string|null
-     */
     public function VehiclePagePath(): ?string
     {
         return $this->getPagePath('WWN\Vehicles\VehiclePage');
     }
 
-    /**
-     * @return mixed|string|null
-     */
     public function VehicleArchivePagePath(): ?string
     {
         return $this->getPagePath('WWN\Vehicles\VehicleArchivePage');
     }
 
-    /**
-     * @param string $pageClassNamespace
-     *
-     * @return string
-     */
-    private function getPagePath($pageClassNamespace): string
+    private function getPagePath(string $pageClassNamespace): string
     {
         $site = SiteTree::get()
             ->filter(['ClassName' => $pageClassNamespace])->first();
-        if (! $site) {
+        if (!$site) {
             return '';
         }
 
@@ -128,25 +106,18 @@ class VehiclePageController extends PageController
 
     /**
      * recursive page path function
-     *
-     * @param integer $id
-     * @param string  $url
-     *
-     * @return string
      */
-    private function getPagePathById($id, $url = ''): string
+    private function getPagePathById(int $id, string $url = ''): string
     {
         $site = SiteTree::get()->filter(['ID' => $id])->first();
-        if (! $site) {
+        if (!$site) {
             return $url;
         }
 
-        if ($site && ! $site->ParentID) {
-            $url = $site->URLSegment.'/'.$url;
-
-            return $url;
+        if (!$site->ParentID) {
+            return $site->URLSegment . '/' . $url;
         } else {
-            $url = $site->URLSegment.'/'.$url;
+            $url = $site->URLSegment . '/' . $url;
             $this->getPagePathById($site->ParentID, $url);
         }
     }

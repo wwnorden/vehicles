@@ -53,11 +53,12 @@ class VehiclePageController extends PageController
      * @return PaginatedList
      * @throws Exception
      */
-    public function PaginatedArchivedVehicles(): PaginatedList
+    public function PaginatedArchivedVehicles($length = 10): PaginatedList
     {
-        $vehicles = VehicleArchive::get();
+        $vehicles = VehicleArchive::get()->filter(['ClassName' => VehicleArchive::class]);
+        $pages = new PaginatedList($vehicles, $this->getRequest());
 
-        return new PaginatedList($vehicles, $this->getRequest());
+        return $pages->setPageLength($length);
     }
 
     /**
